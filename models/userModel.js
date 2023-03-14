@@ -8,17 +8,14 @@ class User {
   get id() {
     return this.row.id;
   }
-  get name() {
-    return this.row.name;
+  get fisrtname() {
+    return this.row.firstname;
   }
-  get description() {
-    return this.row.description;
+  get lastname() {
+    return this.row.lastname;
   }
-  get date() {
-    return moment(this.row.date).format("LL");
-  }
-  get image() {
-    return this.row.image;
+  get status() {
+    return this.row.status;
   }
   get created_at() {
     return moment(this.row.created_at).format("LL");
@@ -29,23 +26,43 @@ class User {
   set id(id) {
     this.row.id = id;
   }
-  set name(name) {
-    this.row.name = name;
+  set fisrtname(fisrtname) {
+    this.row.fisrtname = fisrtname;
   }
-  set description(description) {
-    this.row.description = description;
+  set lastname(lastname) {
+    this.row.lastname = lastname;
   }
-  set date(date) {
-    this.row.date = date;
-  }
-  set image(image) {
-    this.row.image = image;
+  set status(status) {
+    this.row.status = status;
   }
   set created_at(created_at) {
     this.row.created_at = created_at;
   }
   set updated_at(updated_at) {
     this.row.updated_at = updated_at;
+  }
+  static create(fisrtname, lastname, status, callback) {
+     // let hashedPassword = bcrypt.hashSync(req.body.password, 8);
+    my.query(
+      "INSERT INTO users (firstname, lastname, status) VALUES (?,?,?)",
+      [fisrtname, lastname, status],
+      (err, result) => {
+        if (err) throw err;
+        callback(result.insertId);
+      }
+    );
+  }
+  static all(callback) {
+    my.query("SELECT * FROM users", (err, results) => {
+      if (err) throw err;
+      callback(results.map((row) => new User(row)));
+    });
+  }
+  static find(id, callback) {
+    my.query("SELECT * FROM users WHERE id = ?", [id], (err, results) => {
+      if (err) throw err;
+      callback(new User(results[0]));
+    });
   }
 }
 module.exports = User;
