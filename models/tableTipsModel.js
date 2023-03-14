@@ -39,5 +39,21 @@ class TableTips {
             }
         );
     }
+    static update(id, tips, id_restaurantTable, id_service, callback) {
+        my.query(
+            "UPDATE tableTips SET tips = ?, id_restaurantTable = ?, id_service = ? WHERE id = ?",
+            [tips, id_restaurantTable, id_service, id],
+            (err, result) => {
+                if (err) throw err;
+                callback(result);
+            }
+        );
+    }
+    static delete(id, callback) {
+        my.query("DELETE FROM tableTips WHERE id = ?", [id], (err, result) => {
+            if (err) throw err;
+            callback(result);
+        });
+    }
 }
 module.exports = TableTips;
