@@ -55,7 +55,7 @@ class User {
   static all(callback) {
     my.query("SELECT * FROM users", (err, results) => {
       if (err) throw err;
-      callback(results.map((row) => new User(row)));
+      callback(results);
     });
   }
   static find(id, callback) {

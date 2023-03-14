@@ -29,7 +29,6 @@ exports.getUser = function (req, res) {
 exports.getUsers = function (req, res) {
     try{
        userModels.all((err, result) => {
-            if (err) throw err;
             res.send(result);
         });
     }catch(err){
