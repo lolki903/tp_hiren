@@ -4,7 +4,8 @@ let connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     port: 3306,
-    password: '',
+    socketPath:'/Applications/MAMP/tmp/mysql/mysql.sock',
+    password: 'root',
     database: 'tp_hiren'
 });
 

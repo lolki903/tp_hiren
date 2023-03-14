@@ -2,14 +2,17 @@ const express = require('express');
 const userRoute = require('./routes/userRoute');
 const tipspaymentRoute = require('./routes/tipspaymenRoute');
 const restauranttableRoute = require('./routes/restauranttableRoute');
+const port = 3003;
+const app = express();
 
-let app = express();
-
+app.use(express.urlencoded())
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 userRoute(app);
 tipspaymentRoute(app);
 restauranttableRoute(app);
 
-app.listen(3003)
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+}
+);

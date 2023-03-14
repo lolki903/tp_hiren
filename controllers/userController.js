@@ -4,34 +4,48 @@ let userModels = require('../models/userModel');
 
 
 // Register a new user
-exports.register = function (req, res) {
-    try{
+exports.register =  (req, res) =>{
        userModels.create(req.body.firstname, req.body.lastname, req.body.status, (err, result) => {
-            res.send(result);
+            // affiche le résultat de la requête SQL
+            if(err){
+                res.status(401)
+                console.log(err)
+                res.json({message: err})
+            }
+            else{
+                res.status(200)
+                res.json(result)
+            }
+    
         });
-    }catch(err){
-        res.send(err);
-    }
     }
 
 // get one user
-exports.getUser = function (req, res) {
-    try{
+exports.getUser =  (req, res) =>{
        userModels.find(req.params.id, (err, result) => {
-            res.send(result);
+        if(err){
+            res.status(401)
+            console.log(err)
+            res.json({message: err})
+        }
+        else{
+            res.status(200)
+            res.json(result)
+        }
         });
-    }catch(err){
-        res.send(err);
-    }
 }
 
 // get all users
 exports.getUsers = function (req, res) {
-    try{
        userModels.all((err, result) => {
-            res.send(result);
+        if(err){
+            res.status(401)
+            console.log(err)
+            res.json({message: err})
+        }
+        else{
+            res.status(200)
+            res.json(result)
+        }
         });
-    }catch(err){
-        res.send(err);
-    }
 }

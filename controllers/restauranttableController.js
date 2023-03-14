@@ -1,18 +1,30 @@
 let restauranttable = require('../models/restauranttableModel');
 
-exports.list = function (req, res) {
-    try{
+exports.list =  (req, res) =>{
         restauranttable.all((err, result) => {
-            res.status(200).json({result});
+            if(err){
+                res.status(401)
+                console.log(err)
+                res.json({message: err})
+            }
+            else{
+                res.status(200)
+                res.json(result)
+            }
         });
-    }catch(err){
-        res.send(err);
-    }
     
 };
 
-exports.create = function (req, res) {
+exports.create =  (req, res) =>{
     restauranttable.create(req.body.name, (err, result) => {
-        res.send(result);
+        if(err){
+            res.status(401)
+            console.log(err)
+            res.json({message: err})
+        }
+        else{
+            res.status(200)
+            res.json(result)
+        }
     });
 }
