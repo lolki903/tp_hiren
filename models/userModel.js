@@ -47,27 +47,5 @@ class User {
   set updated_at(updated_at) {
     this.row.updated_at = updated_at;
   }
-  static all(cb) {
-    my.query("SELECT * FROM users", (err, rows) => {
-      if (err) throw err;
-      cb(rows.map((row) => new User(row)));
-    });
-  }
-  static find(id, cb) {
-    my.query("SELECT * FROM users WHERE id = ?", id, (err, rows) => {
-      if (err) throw err;
-      cb(new User(rows[0]));
-    });
-  }
-  static create(name, description, date, image, cb) {
-    my.query(
-      "INSERT INTO users (name, description, date, image) VALUES (?, ?, ?, ?)",
-      [name, description, date, image],
-      (err, result) => {
-        if (err) throw err;
-        cb(result);
-      }
-    );
-  }
 }
 module.exports = User;
