@@ -23,6 +23,9 @@ class User {
   get updated_at() {
     return moment(this.row.updated_at).format("LL");
   }
+  get active() {
+    return this.row.active;
+  }
   set id(id) {
     this.row.id = id;
   }
@@ -41,11 +44,14 @@ class User {
   set updated_at(updated_at) {
     this.row.updated_at = updated_at;
   }
-  static create(fisrtname, lastname, status, callback) {
+  set active(active) {
+    this.row.active = active;
+  }
+  static create(fisrtname, lastname, status,active, callback) {
      // let hashedPassword = bcrypt.hashSync(req.body.password, 8);
     my.query(
-      "INSERT INTO users (firstname, lastname, status) VALUES (?,?,?)",
-      [fisrtname, lastname, status],
+      "INSERT INTO users (firstname, lastname, status, active) VALUES (?,?,?,?)",
+      [fisrtname, lastname, status, active],
       (err, result) => {
         if (err) throw err;
         callback(result.insertId);
@@ -61,6 +67,22 @@ class User {
     my.query("SELECT * FROM users WHERE id = ?", [id], (err, results) => {
       if (err) throw err;
       callback(new User(results[0]));
+    });
+  }
+  static update(id, fisrtname, lastname, status,active, callback) {
+    my.query(
+      "UPDATE users SET firstname = ?, lastname = ?, status = ?, active = ? WHERE id = ?",
+      [fisrtname, lastname, status, active, id],
+      (err, result) => {
+        if (err) throw err;
+        callback(result);
+      }
+    );
+  }
+  static delete(id, callback) {
+    my.query("DELETE FROM users WHERE id = ?", [id], (err, result) => {
+      if (err) throw err;
+      callback(result);
     });
   }
 }

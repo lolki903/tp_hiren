@@ -3,7 +3,8 @@ const userRoute = require('./routes/userRoute');
 const tipspaymentRoute = require('./routes/tipspaymenRoute');
 const restauranttableRoute = require('./routes/restauranttableRoute');
 const servicesRoute = require('./routes/servicesRoute');
-// const adminRoute = require('./routes/adminRoute');
+const adminRoute = require('./routes/adminRoute');
+const tableTipsRoute = require('./routes/tableTipsRoute');
 const port = 3003;
 const app = express();
 
@@ -14,7 +15,9 @@ userRoute(app);
 tipspaymentRoute(app);
 restauranttableRoute(app);
 servicesRoute(app);
-// adminRoute(app);
+tableTipsRoute(app);
+
+adminRoute(app);
 
 
 app.listen(port, () => {

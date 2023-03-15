@@ -47,5 +47,23 @@ class TipsPayment {
             callback(results.map((row) => new TipsPayment(row)));
         });
     }
+    static find(id, callback) {
+        my.query("SELECT * FROM tipspayments WHERE id = ?", [id], (err, results) => {
+            if (err) throw err;
+            callback(new TipsPayment(results[0]));
+        });
+    }
+    static update(id, amount, id_user, callback) {
+        my.query("UPDATE tipspayments SET amount = ?, id_user = ? WHERE id = ?", [amount, id_user, id], (err, result) => {
+            if (err) throw err;
+            callback(result);
+        });
+    }
+    static delete(id, callback) {
+        my.query("DELETE FROM tipspayments WHERE id = ?", [id], (err, result) => {
+            if (err) throw err;
+            callback(result);
+        });
+    }
 }
 module.exports = TipsPayment;

@@ -29,16 +29,16 @@ class Admin {
   set updated_at(updated_at) {
     this.row.updated_at = updated_at;
   }
-  static login(pincode) {
+  static login(pincode, callback) {
     my.query(
       "SELECT * FROM admin WHERE pincode = ?",
       [pincode],
       (err, rows) => {
         if (err) throw err;
-        if (rows.pincode == this.pincode) {
-          return true;
+        if (rows.length > 0) {
+          callback("Bienvenue");
         } else {
-          return false;
+          callback("Pincode incorrect");
         }
       }
     );

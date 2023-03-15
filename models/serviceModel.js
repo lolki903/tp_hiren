@@ -29,24 +29,29 @@ class Service {
     set shiftType(shiftType) {
         this.row.shiftType = shiftType;
     }
-     create(shiftType,shiftClosed, callback) {
+     static create(shiftType,shiftClosed, callback) {
         my.query("INSERT INTO services SET shiftType = ? , shiftClosed = ?", [shiftType,shiftClosed], (err, result) => {
             if (err) throw err;
             callback(result.insertId);
         });
     }
-     all(callback) {
+     static all(callback) {
         my.query("SELECT * FROM services", (err, results) => {
             if (err) throw err;
             callback(results.map((row) => new Service(row)));
         });
     }
-     find(id, callback) {
+     static find(id, callback) {
         my.query("SELECT * FROM services WHERE id = ?", [id], (err, results) => {
             if (err) throw err;
             callback(new Service(results[0]));
         });
     }
-
+    static update(id,shiftClosed, callback) {
+        my.query("UPDATE services SET shiftClosed = ? WHERE id = ?", [shiftClosed, id], (err, result) => {
+            if (err) throw err;
+            callback(result);
+        });
+    }
 }
 module.exports = Service;

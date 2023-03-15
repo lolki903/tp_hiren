@@ -49,3 +49,33 @@ exports.getUsers = function (req, res) {
         }
         });
 }
+
+// update one user
+exports.updateUser =  (req, res) =>{
+         userModels.update(req.params.id, req.body.firstname, req.body.lastname, req.body.status, (err, result) => {
+          if(err){
+                res.status(401)
+                console.log(err)
+                res.json({message: err})
+          }
+          else{
+                res.status(200)
+                res.json(result)
+          }
+          });
+}
+
+// delete one user
+exports.deleteUser =  (req, res) =>{
+        userModels.delete(req.params.id, (err, result) => {
+        if(err){
+            res.status(401)
+            console.log(err)
+            res.json({message: err})
+        }
+        else{
+            res.status(200)
+            res.json(result)
+        }
+        });
+}

@@ -39,5 +39,21 @@ class TableTips {
             }
         );
     }
+    static find(id, callback) {
+        my.query("SELECT * FROM tableTips WHERE id = ?", [id], (err, results) => {
+            if (err) throw err;
+            callback(new TableTips(results[0]));
+        });
+    }
+    static update(id, tips, id_restaurantTable, id_service, callback) {
+        my.query(
+            "UPDATE tableTips SET tips = ?, id_restaurantTable = ?, id_service = ? WHERE id = ?",
+            [tips, id_restaurantTable, id_service, id],
+            (err, result) => {
+                if (err) throw err;
+                callback(result);
+            }
+        );
+    }
 }
 module.exports = TableTips;
