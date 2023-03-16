@@ -1,7 +1,8 @@
-const serviceModel = require('../models/serviceModel');
+const statmodel = require('../models/statModel');
 
-exports.list =  (req, res) =>{
-    serviceModel.all((err, result) => {
+exports.total =  (req, res) =>{
+    let total = 0
+    statmodel.stattotal((err, result) => {
         if(err){
              
             console.log(err)
@@ -14,8 +15,8 @@ exports.list =  (req, res) =>{
     });
 }
 
-exports.create =  (req, res) =>{
-    serviceModel.create(req.body.shifttype,0, (err, result) => {
+exports.tipsuser =  (req, res) =>{
+    statmodel.usersTips(req.params.id, (err, result) => {
         if(err){
              
             console.log(err)
@@ -25,11 +26,5 @@ exports.create =  (req, res) =>{
             res.status(200)
             res.json(result)
         }
-    })
-}
-
-exports.update =  (req, res) =>{
-}
-
-exports.delete =  (req, res) =>{
+    });
 }

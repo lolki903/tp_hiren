@@ -8,7 +8,7 @@ exports.register =  (req, res) =>{
        userModels.create(req.body.firstname, req.body.lastname, req.body.status, (err, result) => {
             // affiche le résultat de la requête SQL
             if(err){
-                res.status(401)
+                 
                 console.log(err)
                 res.json({message: err})
             }
@@ -24,7 +24,7 @@ exports.register =  (req, res) =>{
 exports.getUser =  (req, res) =>{
        userModels.find(req.params.id, (err, result) => {
         if(err){
-            res.status(401)
+             
             console.log(err)
             res.json({message: err})
         }
@@ -36,15 +36,13 @@ exports.getUser =  (req, res) =>{
 }
 
 // get all users
-exports.getUsers = function (req, res) {
+exports.getUsers = (req, res)=> {
        userModels.all((err, result) => {
         if(err){
-            res.status(401)
             console.log(err)
             res.json({message: err})
         }
         else{
-            res.status(200)
             res.json(result)
         }
         });
@@ -54,12 +52,11 @@ exports.getUsers = function (req, res) {
 exports.updateUser =  (req, res) =>{
          userModels.update(req.params.id, req.body.firstname, req.body.lastname, req.body.status, (err, result) => {
           if(err){
-                res.status(401)
                 console.log(err)
                 res.json({message: err})
           }
           else{
-                res.status(200)
+                res.status(201)
                 res.json(result)
           }
           });
@@ -69,7 +66,7 @@ exports.updateUser =  (req, res) =>{
 exports.deleteUser =  (req, res) =>{
         userModels.delete(req.params.id, (err, result) => {
         if(err){
-            res.status(401)
+             
             console.log(err)
             res.json({message: err})
         }

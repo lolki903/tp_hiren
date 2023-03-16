@@ -4,7 +4,7 @@ exports.list =  (req, res) =>{
     
         tips_payment.all((err, result) => {
             if(err){
-                res.status(401)
+                 
                 console.log(err)
                 res.json({message: err})
             }
@@ -19,7 +19,7 @@ exports.list =  (req, res) =>{
 exports.create =  (req, res)=> {
         tips_payment.create(req.body.amount, req.body.id_user, (err, result) => {
             if(err){
-                res.status(401)
+                 
                 console.log(err)
                 res.json({message: err})
             }
@@ -33,7 +33,7 @@ exports.create =  (req, res)=> {
 exports.delete =  (req, res) =>{
     tips_payment.delete(req.params.id, (err, result) => {
         if(err){
-            res.status(401)
+             
             console.log(err)
             res.json({message: err})
         }
@@ -47,7 +47,7 @@ exports.delete =  (req, res) =>{
 exports.update =  (req, res) =>{
     tips_payment.update(req.params.id,req.body.amount,req.body.id_user, (err, result) => {
         if(err){
-            res.status(401)
+             
             console.log(err)
             res.json({message: err})
         }

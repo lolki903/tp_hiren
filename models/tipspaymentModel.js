@@ -36,31 +36,31 @@ class TipsPayment {
         this.row.updated_at = updated_at;
     }
     static create(amount, id_user, callback) {
-        my.query("INSERT INTO tipspayments (amount, id_user) VALUES (?,?)", [amount, id_user], (err, result) => {
+        my.query("INSERT INTO tipsPayments (amount, id_user) VALUES (?,?)", [amount, id_user], (err, result) => {
             if (err) throw err;
             callback(result);
         });
     }
     static all(callback) {
-        my.query("SELECT * FROM tipspayments", (err, results) => {
+        my.query("SELECT * FROM tipsPayments", (err, results) => {
             if (err) throw err;
             callback(results.map((row) => new TipsPayment(row)));
         });
     }
     static find(id, callback) {
-        my.query("SELECT * FROM tipspayments WHERE id = ?", [id], (err, results) => {
+        my.query("SELECT * FROM tipsPayments WHERE id = ?", [id], (err, results) => {
             if (err) throw err;
             callback(new TipsPayment(results[0]));
         });
     }
     static update(id, amount, id_user, callback) {
-        my.query("UPDATE tipspayments SET amount = ?, id_user = ? WHERE id = ?", [amount, id_user, id], (err, result) => {
+        my.query("UPDATE tipsPayments SET amount = ?, id_user = ? WHERE id = ?", [amount, id_user, id], (err, result) => {
             if (err) throw err;
             callback(result);
         });
     }
     static delete(id, callback) {
-        my.query("DELETE FROM tipspayments WHERE id = ?", [id], (err, result) => {
+        my.query("DELETE FROM tipsPayments WHERE id = ?", [id], (err, result) => {
             if (err) throw err;
             callback(result);
         });

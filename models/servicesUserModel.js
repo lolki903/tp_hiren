@@ -3,7 +3,7 @@ let my = require('../config/database');
 class ServicesUser {
     static all(callback) {
         my.query(
-            "SELECT * FROM servicesUsers",
+            "SELECT * FROM servicesUsers JOIN services ON servicesUsers.id_service = services.id JOIN users ON servicesUsers.id_user = users.id",
             (err, result) => {
                 if (err) throw err;
                 callback(result);
@@ -35,6 +35,17 @@ class ServicesUser {
         my.query(
             "DELETE FROM servicesUsers WHERE id = ?",
             [id],
+            (err, result) => {
+                if (err) throw err;
+                callback(result);
+            }
+        );
+    }
+
+    static update(id, id_service,id_user, callback) {
+        my.query(
+            "UPDATE servicesUsers SET id_service = ?, id_user = ? WHERE id = ?",
+            [id_service,id_user, id],
             (err, result) => {
                 if (err) throw err;
                 callback(result);

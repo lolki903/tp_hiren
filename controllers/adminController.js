@@ -3,7 +3,7 @@ const adminModel = require('../models/adminModel');
 exports.login = (req, res) => {
     adminModel.login(req.body.pincode, (err, result) => {
         if(err){
-            res.status(401)
+            res.status(404)
             console.log(err)
             res.json({message: err})
         }
