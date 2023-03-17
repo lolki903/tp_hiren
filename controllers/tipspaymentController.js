@@ -57,3 +57,17 @@ exports.update =  (req, res) =>{
         }
     });
 }
+
+exports.getOne =  (req, res) =>{
+    tips_payment.find(req.params.id, (err, result) => {
+        if(err){
+             
+            console.log(err)
+            res.json({message: err})
+        }
+        else{
+            res.status(200)
+            res.json(result)
+        }
+    });
+}

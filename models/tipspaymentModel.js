@@ -48,7 +48,7 @@ class TipsPayment {
         });
     }
     static find(id, callback) {
-        my.query("SELECT * FROM tipsPayments WHERE id = ?", [id], (err, results) => {
+        my.query("SELECT * FROM tipsPayments JOIN users ON tipsPayments.id_user = users.id WHERE tipsPayments.id = ?", [id], (err, results) => {
             if (err) throw err;
             callback(new TipsPayment(results[0]));
         });

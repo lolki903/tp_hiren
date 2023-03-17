@@ -29,7 +29,29 @@ exports.create =  (req, res) =>{
 }
 
 exports.update =  (req, res) =>{
+    serviceModel.update(req.param.id,req.body.shiftclose,(err,result)=>{
+        if(err){
+             
+            console.log(err)
+            res.json({message: err})
+        }
+        else{
+            res.status(200)
+            res.json(result)
+        }
+    })
 }
 
 exports.delete =  (req, res) =>{
+    serviceModel.delete(req.param.id,(err,result)=>{
+        if(err){
+             
+            console.log(err)
+            res.json({message: err})
+        }
+        else{
+            res.status(200)
+            res.json(result.data)
+        }
+    })
 }

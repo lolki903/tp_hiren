@@ -5,6 +5,8 @@ module.exports = (app) => {
     app.route('/tipspayment')
         .post(tipspayment.create)
         .get(tipspayment.list)
-    // app.route('/tipspayment/:id')
-    //     .get(user.getUser)
+    app.route('/tipspayment/:id')
+        .get(tipspayment.getOne)
+        .put(tipspayment.update)
+        .delete(tipspayment.delete)
 }

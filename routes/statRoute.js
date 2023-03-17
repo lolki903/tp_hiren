@@ -3,4 +3,5 @@ module.exports = (app) => {
     
     app.route("/stat").get(stat.total);
     app.route("/statuser/:id").get(stat.tipsuser);
+    app.route("/statmonth/:id").get(stat.monthtips);
     }

@@ -28,3 +28,15 @@ exports.tipsuser =  (req, res) =>{
         }
     });
 }
+exports.monthtips =  (req, res) =>{
+    statmodel.month(req.params.id, (err, result) => {
+        if(err){
+            console.log(err)
+            res.json({message: err})
+        }
+        else{
+            res.status(200)
+            res.json(result)
+        }
+    });
+}

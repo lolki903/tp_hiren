@@ -21,6 +21,16 @@ class Stat {
         }
         );
     }
+
+    static month (id,callback) {
+        // addtionne les tips de la table tips
+        my.query("SELECT SUM(tips) AS total FROM tableTips WHERE MONTH(created_at) = ? ",[id], (err, rows) => {
+            if (err) throw err;
+            callback(rows);
+        })
+    }
+
+    
 }
 
 module.exports = Stat;
