@@ -22,7 +22,7 @@ const swaggerOptions = {
   swaggerDefinition: {
     info: {
       title: "API REST",
-      description: "API Jules",
+      description: "API batdev",
       contact: {
         name: "Batdev",
       },
