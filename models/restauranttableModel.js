@@ -30,12 +30,18 @@ class RestaurantTable {
         this.row.updated_at = updated_at;
     }
     static all(callback) {
-        my.query("SELECT * FROM restauranttable", (err, results) => {
+        my.query("SELECT * FROM restaurantTable", (err, results) => {
             callback(results.map((row) => new RestaurantTable(row)));
         });
     }
     static create(name, callback) {
-        my.query("INSERT INTO restauranttable (name) VALUES (?)", [name], (err, result) => {
+        my.query("INSERT INTO restaurantTable (name) VALUES (?)", [name], (err, result) => {
+            if (err) throw err;
+            callback(result);
+        });
+    }
+    static update(id, name, callback) {
+        my.query("UPDATE restaurantTable SET name = ? WHERE id = ?", [name, id], (err, result) => {
             if (err) throw err;
             callback(result);
         });
