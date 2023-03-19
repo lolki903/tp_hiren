@@ -43,18 +43,6 @@ tableTipsRoute(app);
 servicesUserRoute(app);
 adminRoute(app);
 statRoute(app);
-/* SWAGGER USER */
-/**
- * @swagger
- * /user:
- *  get:
- *      description: Get all users
- *      responses:
- *          '200':
- *              description: A successful response
- */
-
-/* Server */
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
