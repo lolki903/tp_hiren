@@ -13,7 +13,6 @@
  */
 
 /* SWAGGER USER */
-
 /**
  * @swagger
  * paths:
@@ -222,4 +221,100 @@
  *                   example: 1
  *       500:
  *         description: Erreur de serveur lors de la création de la nouvelle table de restaurant.
+ */
+
+/**
+ * @swagger
+ * paths:
+ *  /restauranttable/{id}:
+ *      put:
+ *       summary: Mettre à jour une table de restaurant
+ *       description: Mettre à jour une table de restaurant
+ *       parameters:
+ *        - in: path
+ *          name: id
+ *          type: integer
+ *          required: true
+ *          description: id de la table de restaurant
+ *        - in: body
+ *          name: name
+ *          description: Le nom de la table de restaurant.
+ *          required: true
+ *          schema:
+ *           type: object   
+ *           properties:
+ *            name:
+ *              type: string
+ *              description: Le nom de la table de restaurant.
+ *              example: "Table du dev"
+ *       responses:
+ *          '200':
+ *              description: A successful response
+ *          '500':
+ *              description: Erreur de serveur lors de la mise à jour de la table de restaurant
+ *          '404':
+ *             description: Table de restaurant non trouvée
+ */
+
+/* SWAGGER STATS */
+
+/**
+ * @swagger
+ * paths:
+ *  /stat:
+ *   get:
+ *    summary: Tout les pourboires versés
+ *    description: Récupère tout les pourboires versés
+ *    responses:
+ *     '200':
+ *          description: A successful response
+ *     '500':
+ *          description: Erreur de serveur lors de la récupération des pourboires
+ *     '404':
+ *         description: Aucun pourboire trouvé
+ */
+
+/**
+ * @swagger
+ * paths:
+ *  /statuser/{id}:
+ *    get:
+ *      summary: Total pourboire d'un user
+ *      description: Total pourboire d'un user
+ *      parameters:
+ *         - in: path
+ *           name: id
+ *           type: integer
+ *           required: true
+ *           description: id of the user
+ *      responses:
+ *         '200':
+ *            description: Suppression
+ *         '500':
+ *           description: Erreur de serveur lors de la récupération du user
+ *         '404':
+ *           description: User non trouvé
+ */
+
+/**
+ * @swagger
+ * paths:
+ *  /statmonth/{id}:
+ *    get:
+ *      summary: Total pourboire gagne sur le mois
+ *      description: Total pourboire d'un user
+ *      parameters:
+ *         - in: path
+ *           name: id
+ *           type: integer
+ *           required: true
+ *           description: numero du mois
+ *           example: '01'
+ *      responses:
+ *         '200':
+ *           description: Stats du mois récupérées avec succès
+ *         '500':
+ *           description: Erreur de serveur lors de la récupération du user
+ *         '404':
+ *           description: User non trouvé
  */
