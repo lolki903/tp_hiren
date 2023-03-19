@@ -40,3 +40,15 @@ exports.monthtips =  (req, res) =>{
         }
     });
 }
+exports.weektips =  (req, res) =>{
+    statmodel.week(req.params.id, (err, result) => {
+        if(err){
+            console.log(err)
+            res.json({message: err})
+        }
+        else{
+            res.status(200)
+            res.json(result)
+        }
+    });
+}

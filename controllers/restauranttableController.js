@@ -28,3 +28,17 @@ exports.create =  (req, res) =>{
         }
     });
 }
+
+exports.update =  (req, res) =>{
+    restauranttable.update(req.params.id,req.body.name, (err, result) => {
+        if(err){
+             
+            console.log(err)
+            res.json({message: err})
+        }
+        else{
+            res.status(200)
+            res.json(result)
+        }
+    });
+}
