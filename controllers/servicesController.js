@@ -3,7 +3,6 @@ const serviceModel = require('../models/serviceModel');
 exports.list =  (req, res) =>{
     serviceModel.all((err, result) => {
         if(err){
-             
             console.log(err)
             res.json({message: err})
         }

@@ -43,5 +43,19 @@ class Admin {
       }
     );
   }
+  static create(pincode, callback) {
+    my.query(
+      "INSERT INTO admin (pincode) VALUES (?)",
+      [pincode],
+      (err, result) => {
+        callback(result);
+      }
+    );
+  }
+  static getOne(pincode,callback) {
+    my.query("SELECT * FROM admin WHERE pincode = ?", [pincode], (err, rows) => {
+       callback(rows);
+    });
+  }
 }
 module.exports = Admin;
