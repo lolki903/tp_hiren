@@ -45,17 +45,20 @@ class Admin {
   }
   static create(pincode, callback) {
     my.query(
-      "INSERT INTO admin (pincode) VALUES (?)",
+      "INSERT INTO admin2 (pincode) VALUES (?)",
       [pincode],
       (err, result) => {
         callback(result);
       }
     );
   }
-  static getOne(pincode,callback) {
-    my.query("SELECT * FROM admin WHERE pincode = ?", [pincode], (err, rows) => {
-       callback(rows);
-    });
+  static getOne(callback) {
+    // Select one admin
+    my.query("SELECT * FROM admin2 where id = 1", (err, rows) => {
+      
+      callback(rows);
+    }
+    );
   }
 }
 module.exports = Admin;

@@ -15,33 +15,47 @@ exports.login = (req, res) => {
 };
 
 // Create a new admin
-exports.createAdmin = (req, res) => {
-  const hashedPincode = bcrypt.hashSync(req.body.pincode, 10);
+exports.createAdmin = async(req, res) => {
+  const hashedPincode = await bcrypt.hashSync(req.body.pincode, 10);
+  console.log(hashedPincode);
   adminModel.create(hashedPincode, (err, result) => {
-    if(err) return res.status(500).send('There was a problem registering the admin.')
-    return res.status(200).send({ auth: true, message: result });
+    if (err) {
+        console.log(err);
+      res.status(404);
+      res.json({ message: err });
+    } else {
+      res.status(200);
+      res.json({ message: result});
+    }
   });
 };
 
 // Admin authentication
 exports.authenticateAdmin = async (req, res) => {
     const { pincode } = req.body.pincode;
-    const admin =await adminModel.getOne(pincode, (err, result) => {
+    await adminModel.getOne(async (result,err) => {
         if (err) {
             console.log(err);
             res.status(404);
             res.json({ message: err });
-        } else {
+          } else {
+            const ismatch = bcrypt.compare(pincode, result[0].pincode);
+            if (!ismatch) {
+              return res.status(404).json({ message: "Admin not found" });
+            }
+            const token = jwt.sign({ id: result[0].id }, process.env.JWT_SECRET, {
+              expiresIn: process.env.JWT_EXPIRES_IN,
+            });
             res.status(200);
-            res.json({ message: result });
-        }
+            res.json({ log: "Bienvenue admin", token: token });
+          }
     });
-    console.log(admin);
-    res.send(admin);
+
+    // console.log(admin);
     // if (!admin) {
     //   return res.status(404).json({ message: "Admin not found" });
     // }
-
+    
     // const token = jwt.sign({ id: admin.id }, process.env.JWT_SECRET, {
     //   expiresIn: process.env.JWT_EXPIRES_IN,
     // });
