@@ -8,17 +8,14 @@ class User {
   get id() {
     return this.row.id;
   }
-  get name() {
-    return this.row.name;
+  get fisrtname() {
+    return this.row.firstname;
   }
-  get description() {
-    return this.row.description;
+  get lastname() {
+    return this.row.lastname;
   }
-  get date() {
-    return moment(this.row.date).format("LL");
-  }
-  get image() {
-    return this.row.image;
+  get status() {
+    return this.row.status;
   }
   get created_at() {
     return moment(this.row.created_at).format("LL");
@@ -26,20 +23,20 @@ class User {
   get updated_at() {
     return moment(this.row.updated_at).format("LL");
   }
+  get active() {
+    return this.row.active;
+  }
   set id(id) {
     this.row.id = id;
   }
-  set name(name) {
-    this.row.name = name;
+  set fisrtname(fisrtname) {
+    this.row.fisrtname = fisrtname;
   }
-  set description(description) {
-    this.row.description = description;
+  set lastname(lastname) {
+    this.row.lastname = lastname;
   }
-  set date(date) {
-    this.row.date = date;
-  }
-  set image(image) {
-    this.row.image = image;
+  set status(status) {
+    this.row.status = status;
   }
   set created_at(created_at) {
     this.row.created_at = created_at;
@@ -47,27 +44,46 @@ class User {
   set updated_at(updated_at) {
     this.row.updated_at = updated_at;
   }
-  static all(cb) {
-    my.query("SELECT * FROM users", (err, rows) => {
-      if (err) throw err;
-      cb(rows.map((row) => new User(row)));
-    });
+  set active(active) {
+    this.row.active = active;
   }
-  static find(id, cb) {
-    my.query("SELECT * FROM users WHERE id = ?", id, (err, rows) => {
-      if (err) throw err;
-      cb(new User(rows[0]));
-    });
-  }
-  static create(name, description, date, image, cb) {
+  static create(fisrtname, lastname, status,active, callback) {
+     // let hashedPassword = bcrypt.hashSync(req.body.password, 8);
     my.query(
-      "INSERT INTO users (name, description, date, image) VALUES (?, ?, ?, ?)",
-      [name, description, date, image],
+      "INSERT INTO users (firstname, lastname, status, active) VALUES (?,?,?,?)",
+      [fisrtname, lastname, status, active],
       (err, result) => {
         if (err) throw err;
-        cb(result);
+        callback(result.insertId);
       }
     );
+  }
+  static all(callback) {
+    my.query("SELECT * FROM users", (err, results) => {
+      callback(results.map((row) => new User(row)));
+    });
+  }
+  static find(id, callback) {
+    my.query("SELECT * FROM users WHERE id = ?", [id], (err, results) => {
+      if (err) throw err;
+      callback(new User(results[0]));
+    });
+  }
+  static update(id, fisrtname, lastname, status,active, callback) {
+    my.query(
+      "UPDATE users SET firstname = ?, lastname = ?, status = ?, active = ? WHERE id = ?",
+      [fisrtname, lastname, status, active, id],
+      (err, result) => {
+        if (err) throw err;
+        callback(result);
+      }
+    );
+  }
+  static delete(anonyme, id, callback) {
+    my.query("UPDATE users SET lastname = ?, firstname = ? WHERE id = ?", [anonyme,anonyme,id], (err, result) => {
+      if (err) throw err;
+      callback(result);
+    });
   }
 }
 module.exports = User;
