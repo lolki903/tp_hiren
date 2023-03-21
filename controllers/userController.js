@@ -1,6 +1,7 @@
 let jwt = require('jsonwebtoken');
 let bcrypt = require('bcryptjs');
-let userModels = require('../models/userModel');
+const userModels = require('../models/userModel');
+const tipspaymentModels = require('../models/tipspaymentModel');
 
 
 // Register a new user
@@ -64,15 +65,17 @@ exports.updateUser =  (req, res) =>{
 
 // delete one user
 exports.deleteUser =  (req, res) =>{
-        userModels.delete(req.params.id, (err, result) => {
-        if(err){
-             
-            console.log(err)
-            res.json({message: err})
+        userModels.delete("anonyme",req.params.id, (result, err) => {
+        if(result){
+             res.status(200)
+            console.log(result)
+            res.json({message: result})
         }
         else{
-            res.status(200)
-            res.json(result)
+            res.status(400)
+            res.json(err)
         }
         });
+        res.status(200)
+        res.json({"C'est bon": "ça marche"})
 }

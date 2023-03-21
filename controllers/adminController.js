@@ -33,7 +33,7 @@ exports.authenticateAdmin = async (req, res) => {
     // const pincode  = req.body.pincode;
     await adminModel.getOne(req.body.pincode, (result,err) => {
         if (err) {
-            console.log(err);
+            // console.log(err);
             res.status(404);
             res.json({ message: err });
           } else {

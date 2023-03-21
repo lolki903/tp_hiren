@@ -59,6 +59,11 @@ class TipsPayment {
             callback(result);
         });
     }
+    static updateUserId(id, id_user, callback) {
+        my.query("UPDATE tipsPayments SET id_user = ? WHERE id_user = ?", [id, id_user], (err, result) => {
+            callback(result);
+        });
+    }
     static delete(id, callback) {
         my.query("DELETE FROM tipsPayments WHERE id = ?", [id], (err, result) => {
             if (err) throw err;

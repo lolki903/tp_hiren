@@ -3,13 +3,33 @@
 /**
  * @swagger
  * /admin:
- *  post:
- *      description: Use to request login
- *      responses:
- *          '200':
- *              description: A successful response
- *          '404':
- *              description: Mauvais pincode
+ *   post:
+ *     summary: Login admin.
+ *     description: Crée une nouvelle table de restaurant avec un nom donné.
+ *     parameters:
+ *       - in: body
+ *         name: pincode
+ *         description: Le nom de la nouvelle table de restaurant.
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *              pincode:
+ *                  type: number
+ *     responses:
+ *       200:
+ *         description: Login admin avec succès.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   description: login admin.
+ *                   example: 1
+ *       500:
+ *         description: Erreur de serveur lors de la création de la nouvelle table de restaurant.
  */
 
 /* SWAGGER USER */
@@ -84,7 +104,27 @@
  *       500:
  *         description: Erreur de serveur lors de la création du nouveau user.
  */
-
+/**
+ * @swagger
+ * paths:
+ *  /user/delete/{id}:
+ *      put:
+ *       summary: Mettre à jour une table de restaurant
+ *       description: Mettre à jour une table de restaurant
+ *       parameters:
+ *        - in: path
+ *          name: id
+ *          type: integer
+ *          required: true
+ *          description: id de la table de restaurant
+ *       responses:
+ *          '200':
+ *              description: A successful response
+ *          '500':
+ *              description: Erreur de serveur lors de la mise à jour de la table de restaurant
+ *          '404':
+ *             description: Table de restaurant non trouvée
+ */
 
 /* SWAGGER TIPS PAYMENT */
 

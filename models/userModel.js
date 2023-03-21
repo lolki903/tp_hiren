@@ -79,8 +79,8 @@ class User {
       }
     );
   }
-  static delete(id, callback) {
-    my.query("DELETE FROM users WHERE id = ?", [id], (err, result) => {
+  static delete(anonyme, id, callback) {
+    my.query("UPDATE users SET lastname = ?, firstname = ? WHERE id = ?", [anonyme,anonyme,id], (err, result) => {
       if (err) throw err;
       callback(result);
     });
