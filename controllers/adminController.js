@@ -16,9 +16,7 @@ exports.login = (req, res) => {
 
 // Create a new admin
 exports.createAdmin = async(req, res) => {
-  const hashedPincode = await bcrypt.hashSync(req.body.pincode, 10);
-  console.log(hashedPincode);
-  adminModel.create(hashedPincode, (err, result) => {
+  adminModel.create(req.body.pincode, (err, result) => {
     if (err) {
         console.log(err);
       res.status(404);
@@ -32,22 +30,17 @@ exports.createAdmin = async(req, res) => {
 
 // Admin authentication
 exports.authenticateAdmin = async (req, res) => {
-    const { pincode } = req.body.pincode;
-    await adminModel.getOne(async (result,err) => {
+    // const pincode  = req.body.pincode;
+    await adminModel.getOne(req.body.pincode, (result,err) => {
         if (err) {
             console.log(err);
             res.status(404);
             res.json({ message: err });
           } else {
-            const ismatch = bcrypt.compare(pincode, result[0].pincode);
-            if (!ismatch) {
-              return res.status(404).json({ message: "Admin not found" });
-            }
-            const token = jwt.sign({ id: result[0].id }, process.env.JWT_SECRET, {
-              expiresIn: process.env.JWT_EXPIRES_IN,
-            });
+            const reso = result[0].pincode;
+            const token = jwt.sign({ reso }, "my-secret-key");
             res.status(200);
-            res.json({ log: "Bienvenue admin", token: token });
+            res.json({ log: "Bienvenue admin", token: token});
           }
     });
 

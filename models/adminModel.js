@@ -52,9 +52,9 @@ class Admin {
       }
     );
   }
-  static getOne(callback) {
+  static getOne(pincode,callback) {
     // Select one admin
-    my.query("SELECT * FROM admin2 where id = 1", (err, rows) => {
+    my.query("SELECT * FROM admin2 where pincode = ?", [pincode], (err, rows) => {
       
       callback(rows);
     }
