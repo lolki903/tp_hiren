@@ -1,3 +1,13 @@
+/**
+ * @swagger
+ *  securityDefinitions:
+ *   jwt:
+ *    type: apiKey
+ *    name: Authorization
+ *    in: header
+ */
+
+
 /* SWAGGER ADMIN*/
 
 /**
@@ -6,6 +16,7 @@
  *   post:
  *     summary: Login admin.
  *     description: Crée une nouvelle table de restaurant avec un nom donné.
+ *     tags: [Admin]
  *     parameters:
  *       - in: body
  *         name: pincode
@@ -39,6 +50,7 @@
  *  /user:
  *  get:
  *      description: Get all users
+ *      tags: [User]
  *      responses:
  *          '200':
  *              description: A successful response
@@ -52,6 +64,7 @@
  *  /user/{id}:
  *    get:
  *      description: Get user by id
+ *      tags: [User]
  *      parameters:
  *         - in: path
  *           name: id
@@ -73,6 +86,7 @@
  *   post:
  *     summary: Créer un user.
  *     description: Crée un nouveau user.
+ *     tags: [User]
  *     parameters:
  *       - in: body
  *         name: user
@@ -111,6 +125,7 @@
  *      put:
  *       summary: Mettre à jour une table de restaurant
  *       description: Mettre à jour une table de restaurant
+ *       tags: [User]
  *       parameters:
  *        - in: path
  *          name: id
@@ -134,6 +149,8 @@
  *  /tipspayment:
  *   post:
  *    summary: Créer un tips payment
+ *    description: Crée un nouveau tips payment
+ *    tags: [TipsPayment]
  *    parameters:
  *     - name: id_user
  *       in: body
@@ -161,7 +178,9 @@
  * paths:
  *  /tipspayment/{id}:
  *      get:
+ *        summary: Get tips payment by id
  *        description: Get tips payment by id
+ *        tags: [TipsPayment]
  *        parameters:
  *          - in: path
  *            name: id
@@ -181,6 +200,7 @@
  *   get:
  *    summary: Tout les pourboires versés
  *    description: Récupère tout les pourboires versés
+ *    tags: [TipsPayment]
  *    responses:
  *     '200':
  *      description: A successful response
@@ -190,17 +210,10 @@
  * @swagger
  * paths:
  *  /tipspayment/{id}:
- *   put:
- *      summary: Mettre à jour un tips payment
- *  
- */
-
-/**
- * @swagger
- * paths:
- *  /tipspayment/{id}:
  *    delete:
- *      description: Get user by id
+ *      summary: Suppression d'un tips payment
+ *      description: Suppression d'un tips payment
+ *      tags: [TipsPayment]
  *      parameters:
  *         - in: path
  *           name: id
@@ -226,6 +239,7 @@
  *   get:
  *    summary: Tout les noms des tables
  *    description: Récupère tout les noms des tables
+ *    tags: [RestaurantTable]
  *    responses:
  *     '200':
  *      description: A successful response
@@ -237,6 +251,7 @@
  *   post:
  *     summary: Créer une nouvelle table de restaurant.
  *     description: Crée une nouvelle table de restaurant avec un nom donné.
+ *     tags: [RestaurantTable]
  *     parameters:
  *       - in: body
  *         name: name
@@ -270,6 +285,7 @@
  *      put:
  *       summary: Mettre à jour une table de restaurant
  *       description: Mettre à jour une table de restaurant
+ *       tags: [RestaurantTable]
  *       parameters:
  *        - in: path
  *          name: id
@@ -305,6 +321,9 @@
  *   get:
  *    summary: Tout les pourboires versés
  *    description: Récupère tout les pourboires versés
+ *    tags: [Stats]
+ *    security:
+ *     - jwt: []
  *    responses:
  *     '200':
  *          description: A successful response
@@ -321,6 +340,7 @@
  *    get:
  *      summary: Total pourboire d'un user
  *      description: Total pourboire d'un user
+ *      tags: [Stats]
  *      parameters:
  *         - in: path
  *           name: id
@@ -343,6 +363,9 @@
  *    get:
  *      summary: Total pourboire gagne sur le mois
  *      description: Total pourboire d'un user
+ *      tags: [Stats]
+ *      security:
+ *         - jwt: []
  *      parameters:
  *         - in: path
  *           name: id
